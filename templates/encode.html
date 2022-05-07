@@ -1,0 +1,21 @@
+{% extends "base.html" %}<!--jinja template-->
+{% block content %}
+    <div class="container body center">
+        <form method="post" action="/encode" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="file" class="form-label">
+                    Enter Cover Image
+                </label>
+                <input type="file" name="file" id="file" accept="image/*" aria-describedby="imageHelp"/>
+                <div id="imageHelp" class="form-text">Upload the image you want to use as cover.</div>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">
+                    Enter message
+                </label>
+                <input type="text" name="message" id="message">
+            </div>
+            <button type="submit" class="btn btn-primary">Encode</button>
+        </form>
+    </div>
+{% endblock %}

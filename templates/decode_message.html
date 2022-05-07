@@ -1,0 +1,30 @@
+{%extends "base.html"%}
+{%block content%}
+    <div class="container body">
+      <div class="row">
+
+  <div class="col-sm-6">
+    <div class="card text-center">
+        <h5 class="card-title text-white bg-dark">Image To be Decoded</h5>
+      <div class="card-body">
+        <img src="{{image}}" width="200" height="200">
+      </div>
+        <div class="card-footer text-center">Right click on the image to see in full resolution</div>
+    </div>
+  </div>
+          <div class="col-sm-6">
+    <div class="card text-center">
+        <div class="card-header bg-dark text-white">
+            Your message decoded successfully
+        </div>
+      <div class="card-body">
+        <h5 class="card-title">Hidden Text</h5>
+        <p class="card-text">{{message}}</p>
+        <a href="{{url_for('decode_handler')}}" class="btn btn-primary">Decode Another One!</a>
+      </div>
+    </div>
+  </div>
+      </div>
+
+</div>
+{%endblock%}

@@ -1,0 +1,21 @@
+#background-video{
+    position:fixed;
+    right:0;
+    bottom:0;
+    min-height:100%;
+    min-width:100%;
+}
+footer{
+    bottom:0;
+    position:fixed;
+    width:100%;
+}
+.body{
+    margin-top:10%;
+}
+.center{
+ margin: auto;
+ margin-top:10%;
+
+padding:10px;
+}

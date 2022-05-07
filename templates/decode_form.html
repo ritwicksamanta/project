@@ -1,0 +1,14 @@
+{%extends "base.html"%}
+{% block content %}
+    <div class="container center">
+        <form action="{{url_for('decode_handler')}}" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="file" class="form-label">Enter Image</label><br>
+            <input type="file" name="file" id="file" accept="image/*" aria-describedby="imageHelp"/>
+                <div id="imageHelp" class="form-text">Upload the image you want to Decode!.</div>
+            </div>
+            <button class="btn btn-info">Decode</button>
+    </form>
+    </div>
+
+{% endblock %}
