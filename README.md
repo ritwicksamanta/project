@@ -7,7 +7,5 @@ or
 `flask run --host=<host_name> --port=<port_number>`
 
 ```
-@settings{
-  font-size:100;
-}
+Open your browser and hit on host:port
 ```
