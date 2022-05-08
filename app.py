@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, request, flash, redirect, url_for, send_from_directory
+from flask import Flask, render_template, request, flash, redirect
 from werkzeug.utils import secure_filename
 
 from image_handler import encode, decode
@@ -11,12 +11,6 @@ app = Flask(__name__)
 app.secret_key = 'secret key'
 print(os.getcwd())
 
-
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-
 UPLOAD_FOLDER = './static/images/'
 DECODE_FOLDER = './static/decoded/'
 ENCODED_OUTPUT = './static/encoded/'
@@ -24,12 +18,18 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['DECODE_FOLDER'] = DECODE_FOLDER
 app.config['ENCODED_OUTPUT'] = ENCODED_OUTPUT
 
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
 @app.route('/encode', methods=['GET', 'POST'])
 def encode_handler():
     if request.method == 'GET':
         return render_template('encode.html')
     elif request.method == 'POST':
-        if 'file' not in request.files:
+        if 'file' not in request.files or request.form.get('message') == '':
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
@@ -44,7 +44,7 @@ def encode_handler():
             message = request.form.get("message")
             m = encode(filename, message, filename)
 
-            return redirect(url_for('download_file', name=filename))
+            return download_file(filename)
 
     return render_template('encode.html')
 
@@ -54,9 +54,9 @@ def encode_handler():
 # serve files in the upload folder by name. url_for("download_file", name=name)
 # generates download URLs.
 
-@app.route('/uploads/<name>')
+@app.route('/encoded')
 def download_file(name):
-    return send_from_directory(app.config["ENCODED_OUTPUT"], name)
+    return render_template('download.html', filename=app.config['ENCODED_OUTPUT'] + name)
 
 
 # Decoding part
@@ -80,7 +80,7 @@ def decode_handler():
             # do decode
             message = decode(filename)
 
-            return render_template('decode_message.html', message=message,image='static/decoded/'+filename)
+            return render_template('decode_message.html', message=message, image='static/decoded/' + filename)
     return render_template('decode_form.html')
 
 

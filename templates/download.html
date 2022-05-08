@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-flex body">
+        <div class="card text-center">
+            <div class="card-title text-white text-center bg-dark">
+                Encoded Image
+            </div>
+            <div class="card-body ">
+                <img src="{{filename}}" height="300" width="300">
+            </div>
+            <div class="card-footer">
+                <a download href="{{filename}}"><button class="btn btn-info">Download Encoded Image</button></a>
+
+                    <a href="{{url_for('encode_handler')}}"><button type="button" class="btn btn-primary">Encode Another One!!</button></a>
+                    <a href="{{url_for('decode_handler')}}"><button type="button" class="btn btn-secondary">Decode Image</button></a>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
