@@ -11,11 +11,9 @@ from PIL import Image
 def convert_message_to_binary(message):
     if type(message) == str:
         return ''.join(
-            [format(ord(i), '08b') for i in message])  # it will convert each character to 8 digit binary code
-    elif type(message) == bytes or type(message) == np.ndarray:
-        return [format(i, '08b') for i in message]
-    elif type(message) == int:
-        return format(message, '08b')
+            [format(ord(i), '08b') for i in
+             message])  # it will convert each character to 8 digit binary code while all the leading spaces will be filled with 0
+
     else:
         raise TypeError('Invalid Data Type')
 
@@ -26,10 +24,7 @@ def encode(src, message, dest):
     width, height = img.size
     array = np.array(list(img.getdata()))
 
-    if img.mode == 'RGB':
-        n = 3
-    elif img.mode == 'RGBA':
-        n = 4
+    n = 3
 
     total_pixels = array.size // n
 
@@ -59,10 +54,7 @@ def decode(src):
     img = Image.open(src, 'r')
     array = np.array(img.getdata())
 
-    if img.mode == 'RGB':
-        n = 3
-    elif img.mode == 'RGBA':
-        n = 4
+    n = 3
     total_pixels = array.size // n
     hidden_bits = ''
 
@@ -78,7 +70,6 @@ def decode(src):
         else:
             message += chr(int(hidden_bits[i], 2))
 
-
     if '&I$igm@' in message:
         return message[:-7]
 
@@ -86,4 +77,4 @@ def decode(src):
         return 'No hidden message'
 
 # encode('static/images/img.png', 'Hi ALL', 'img.png')
-#print(decode('static/encoded/encoded.png'))
+# print(decode('static/encoded/encoded.png'))

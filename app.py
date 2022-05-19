@@ -30,11 +30,11 @@ def encode_handler():
         return render_template('encode.html')
     elif request.method == 'POST':
         if 'file' not in request.files or request.form.get('message') == '':
-            flash('No file part')
+
             return redirect(request.url)
         file = request.files['file']
         if file.filename == '':
-            flash('No selected file')
+
             return redirect(request.url)
         if file:
             filename = secure_filename(file.filename)
